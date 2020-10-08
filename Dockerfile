@@ -1,10 +1,9 @@
 FROM ubuntu:latest
-MAINTAINER Craig Derington "craig@craigderington.me"
+MAINTAINER Craig Derington "craigderington17@gmail.com"
 RUN apt -y update
-RUN apt install -y python-pip python-dev build-essential
+RUN apt install -y python3-pip python-dev build-essential
 COPY . /app
 WORKDIR /app
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
+RUN pip3 install -r requirements.txt
 EXPOSE 5880
-CMD ["app.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:5880", "-w", "2", "app:app"]
